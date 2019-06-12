@@ -1,0 +1,15 @@
+path="/scratch/DGE/MOPOPGEN/plaw/CRC_GWAS/vq/"
+expername="vq_missing"
+
+data=read.table(paste0("/run/user/1000/gvfs/sftp:host=davros",path,expername,".lmiss"),h=T)
+
+ylabels=c("0","20K","40K","60K","80K","100K")
+xlabels=c("0.0001","0.001","0.01","0.1","1")
+#pdf("clean-inds-GWA-data.lmiss.pdf")
+hist(log10(data$F_MISS),axes=F,xlim=c(-4,0),col="RED",ylab="Number of SNPs",xlab="Fraction of missing data",main="All SNPs",ylim=c(0,100000))
+axis(side=2,labels=F)
+mtext(ylabels,side=2,las=2, at=c(0,20000,40000,60000,80000,100000),line=1)
+axis(side=1,labels=F)
+mtext(xlabels,side=1,at=c(-4,-3,-2,-1,0),line=1)
+abline(v=log10(0.05),lty=2)
+#dev.off()

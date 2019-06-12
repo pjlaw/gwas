@@ -1,0 +1,23 @@
+PLINK v1.90b3c 64-bit (2 Feb 2015) 
+9 arguments: --bfile hapmap3r2_CEU.CHB.JPT.YRI.founders.no-at-cg-snps_b37 --make-bed --out hapmap3r2_CEU.CHB.JPT.YRI.founders.no-at-cg-snps_b37_fixed --update-map /scratch/cancgene/plaw/CRC/VQ/data/correct_position.txt 4 2
+Hostname: r1i1n1
+Working directory: /mnt/gpfs/cancgene/plaw/scripts/qc
+Start time: Thu Feb 26 11:12:14 2015
+
+Random number seed: 1424949134
+96776 MB RAM detected; reserving 48388 MB for main workspace.
+1016666 variants loaded from .bim file.
+395 people (199 males, 196 females) loaded from .fam.
+395 phenotype values loaded from .fam.
+--update-map: 79 values updated, 2 variant IDs not present.
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 395 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.997219.
+1016666 variants and 395 people pass filters and QC.
+Phenotype data is quantitative.
+--make-bed to hapmap3r2_CEU.CHB.JPT.YRI.founders.no-at-cg-snps_b37_fixed.bed +
+hapmap3r2_CEU.CHB.JPT.YRI.founders.no-at-cg-snps_b37_fixed.bim +
+hapmap3r2_CEU.CHB.JPT.YRI.founders.no-at-cg-snps_b37_fixed.fam ... done.
+
+End time: Thu Feb 26 11:12:16 2015
