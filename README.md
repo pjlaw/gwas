@@ -36,7 +36,9 @@ Change the paths to your data
 
 
 ## 2. impute using imputev2
-1. create the scripts that will be submitted (this is the updated version of the famous sara-yussanne-yufei-nicky script). You should only need to change the top couple lines (input parameters) *2_whole_genome_imputation_UK10K_1kG.pl*
+*2_whole_genome_imputation_UK10K_1kG.pl*
+
+1. create the scripts that will be submitted (this is the updated version of the famous sara-yussanne-yufei-nicky script). You should only need to change the top couple lines (input parameters) 
 2. submit these files (sitting in whatever folder you specified as the scriptDir in the above script):
 `for file in impute*sh; do bsub < $file; done`
 
@@ -65,6 +67,7 @@ Combine and compress the impute data by chromosome. This script sorts the files 
 
 ## 5. create a sample file for snptest
 You should have sample files with your phased files, but they have the wrong case-control encoding (they are likely to have plink's 1-2 rather than snptest's 0-1 encoding)
+
 `awk '{if(NR<=2)print; else print $1,$2,$3,$4,$5,$6,$7-1}' study.phased.sample > sample_caco.sample`
 
 NB if you have covariates, don't forget to include those
