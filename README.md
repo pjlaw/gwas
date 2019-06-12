@@ -1,21 +1,21 @@
 # GWAS pipeline
 
-Houlston Lab scripts for running a GWAS
-Scripts written with contributions from Philip Law, Marc Henrion, Sara Dobbins, Nicky Whiffin, Yusanne Ma, Yufei Wang
+Houlston Lab scripts for running a GWAS. Scripts written by Marc Henrion and Philip Law, with contributions from Sara Dobbins, Nicky Whiffin, Yusanne Ma, Yufei Wang
 
 ## Quality control
 Before you start, first perform quality control on the SNPs. 
-
 We generally follow this protocol:
 http://www.nature.com/nprot/journal/v5/n9/abs/nprot.2010.116.html 
 
 There is a newer version of plink which is much faster (it's the default on the HPC). However, some of the commands have changed slightly. 
 You can read up on the various commands here: https://www.cog-genomics.org/plink2/ 
 
+Updated scripts in the QC folder.
+
 ## 0.0 Remove SNPs that are not in the reference panel
 davros:/scratch/DGE/MOPOPGEN/plaw/reference_data/philsrefpanelsnpslist.txt.gz
 
-/scratch/DGE/MOPOPGEN/plaw/Dalek/scripts/gwas/find_ref_snps_in_data.py [may need to do this on a highmem node]
+Generated with */scratch/DGE/MOPOPGEN/plaw/Dalek/scripts/gwas/find_ref_snps_in_data.py* [may need to do this on a highmem node]
 
 Then extract the wanted_snps using plink
 
@@ -89,7 +89,7 @@ Filters the snptest output by MAF (case and control separately), HWE (control) a
 I generally just run the R script directly. Also check the beta/se/pvalue columns if they're different.
 NB assumes you've concatenated the filtered snptest results
 
-## 9. Meta-analysis
+## 9. meta-analysis
 *9_metaLoop.sh*
 
 If you are performing a meta-analysis (with other studies) run meta per chromosome
