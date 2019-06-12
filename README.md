@@ -1,7 +1,7 @@
 # GWAS pipeline
 
 Houlston Lab scripts for running a GWAS
-Scripts written with contributions from Marc Henrion, Sara Dobbins, Nicky Whiffin, Philip Law
+Scripts written with contributions from Philip Law, Marc Henrion, Sara Dobbins, Nicky Whiffin, Yusanne Ma, Yufei Wang
 
 ## Quality control
 Before you start, first perform quality control on the SNPs. 
