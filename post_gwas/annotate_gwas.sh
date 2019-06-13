@@ -45,7 +45,7 @@ cat plink_res/$outfile\_clump_*.clumped > plink_res/$outfile\_clump_all.clumped
 #5) LD WITH KNOWN SNPS (you don’t need to re-run this unless you change the list of known snps)
 #ld snps from all published studies - /scratch/DGE/MOPOPGEN/plaw/CRC_GWAS/scotland_meta/output/crc_published_snps.txt
 for i in `seq 1 22`; do plink --bfile "/scratch/DGE/MOPOPGEN/plaw/reference_data/1kg_uk10k_eur/1kg_uk10k_eur_chr"$i"_with_cms" --r2 dprime --ld-snp-list /scratch/DGE/MOPOPGEN/plaw/CRC_GWAS/US_meta/known_snps_eur_plink.txt --ld-window 100000 --ld-window-r2 0.01 --ld-window-kb 1000 --out plink_res/LD_known_$i; done
-cat LD_*.ld | grep -v CHR_A > LD_all.ld
+cat plink_res/LD_*.ld | grep -v CHR_A > plink_res/LD_all.ld
 
 #6) Combine data, make an output file with all the annotations
 python /scratch/DGE/MOPOPGEN/plaw/scripts/crc/post_gwas/annotate_gwas_results.py $outfile $outpath

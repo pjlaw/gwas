@@ -22,13 +22,14 @@ outfile="{}/{}_annotated_results.txt".format(data_dir, fname)
 
 ld_threshold=0.1; # annotates snps as in LD with known variants if r2 is greater than this value
 
-clump_file="{}/plink_new/{}_clump_all.clumped".format(data_dir, fname)
+clump_file="{}/plink_res/{}_clump_all.clumped".format(data_dir, fname)
 meta_results="{}/{}.txt".format(data_dir, fname)
 header_file="{}/head.txt".format(data_dir)
 
 #known data constants
-known_snps_file="/scratch/DGE/MOPOPGEN/plaw/CRC_GWAS/scotland_meta/output/crc_published_snps.txt"
-ld_data="{}/plink_LD/LD_all.ld".format(data_dir)
+known_snps_file="/scratch/DGE/MOPOPGEN/plaw/CRC_GWAS/US_meta/known_snps_eur_plink.txt"
+#known_snps_file="/scratch/DGE/MOPOPGEN/plaw/CRC_GWAS/scotland_meta/output/crc_published_snps.txt"
+ld_data="{}/plink_res/LD_all.ld".format(data_dir)
 cytoband_file="/scratch/DGE/MOPOPGEN/plaw/reference_data/cytoBand-hg19.txt"
 
 known_snps={}
@@ -119,6 +120,8 @@ try:
 except FileNotFoundError:
     sys.exit("header file not found")
 
+header_dict=dict((value, key) for (key, value) in enumerate(header.strip().split()))
+
 print("generating output")
 try:
     with open(meta_results) as ifile, open(outfile, "w") as ofile:
@@ -184,14 +187,15 @@ try:
 
             #count the number of studies this snp is in
             study_count=0
-            for i in data[12::5]:#first p-value at index 12, every 5th column
+            startpos=header_dict["cohort_1_p"]
+            for i in data[startpos::5]:#first p-value at index X, every 5th column
                 if float(i)>0:
                     study_count+=1
             outline.append(str(study_count))
 
             #calculate risk alleles
-            beta=float(data[7])
-            se=float(data[8])
+            beta=float(data[header_dict["beta"]])
+            se=float(data[header_dict["se"]])
             ra_str=""
             raf=0
             if beta>0:
