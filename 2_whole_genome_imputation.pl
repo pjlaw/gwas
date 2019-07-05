@@ -15,13 +15,13 @@ my $inputSuffix=".phased.haps"; # end of the input filenames, i.e. everything af
 my $outputDir="/scratch/cancgene/plaw/CLL_newdata/imputed/"; # path to the directory where the output should go
 my $outputPrefix="CLL_new_imputed_chr"; # start (excl. of path) of the output files, up to where the chromosome is specified
 my $scriptDir="/scratch/cancgene/plaw/CLL_newdata/scripts/"; # directory where the generated script should be written to
-my $refPanel1Prefix="/scratch/cancgene/studies/imputation_ref_panels/RefPanels_1kG-Dec2013_UK10K-Apr2014_consistent_set_of_variants/1kG_Dec2013_integrated_chr"; # path & filename prefix for the first reference panel files (up to where the chr is specified)
+my $refPanel1Prefix="/scratch/Dalek/cancgene/studies/imputation_ref_panels/RefPanels_1kG-Dec2013_UK10K-Apr2014_consistent_set_of_variants/1kG_Dec2013_integrated_chr"; # path & filename prefix for the first reference panel files (up to where the chr is specified)
 my $refPanel1SuffixHaps=".matched_with_UK10K.hap"; # suffix for the first reference panel haplotype files, including the file extension
 my $refPanel1SuffixLeg=".matched_with_UK10K.legend"; # suffix for the first reference panel legend files, including the file extension
-my $refPanel2Prefix="/scratch/cancgene/studies/imputation_ref_panels/RefPanels_1kG-Dec2013_UK10K-Apr2014_consistent_set_of_variants/UK10K_ALSPAC_TWINS_combined_chr"; # path & filename prefix for the second reference panel files (up to where the chr is specified)
+my $refPanel2Prefix="/scratch/Dalek/cancgene/studies/imputation_ref_panels/RefPanels_1kG-Dec2013_UK10K-Apr2014_consistent_set_of_variants/UK10K_ALSPAC_TWINS_combined_chr"; # path & filename prefix for the second reference panel files (up to where the chr is specified)
 my $refPanel2SuffixHaps=".matched_with_1kG.hap"; # suffix for the second reference panel haplotype files, including the file extension
 my $refPanel2SuffixLeg=".matched_with_1kG.legend"; # suffix for the second reference panel legend files, including the file extension
-my $geneticMapPrefix="/scratch/cancgene/mhenrion/1kG_Dec2013_integrated_unzipped/genetic_map_chr"; # path and filename of the genetic map files, up to where the chromosome is specified
+my $geneticMapPrefix="/scratch/Dalek/cancgene/mhenrion/1kG_Dec2013_integrated_unzipped/genetic_map_chr"; # path and filename of the genetic map files, up to where the chromosome is specified
 my $geneticMapSuffix="_combined_b37.txt"; # suffix, incl. file extension, of the genetic map files
 my @chrSizes=(249250621,243199373,198022430,191154276,180915260,171115067,159138663,146364022,141213431,135534747,135006516,133851895,115169878,107349540,102531392,90354753,81195210,78077248,59128983,63025520,48129895,51304566); # the length in bp of the chromosomes that will be run; this is hg19
 my $scriptHeader="#!/bin/bash\n#BSUB -n 2\n#BSUB -P prepay-houlston\n#BSUB -W 168:00\n#BSUB -R \"span[hosts=1]\"\n#BSUB -o ".$scriptDir."temp/impute_%J_stdout.txt\n#BSUB -e ".$scriptDir."temp/impute_%J_stderr.txt"; # the first few lines of the submission scripts with queue controller specific settings
