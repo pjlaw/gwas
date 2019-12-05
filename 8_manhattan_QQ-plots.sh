@@ -1,10 +1,10 @@
 #!/bin/bash
+#BSUB -J plots
 #BSUB -n 1
 #BSUB -W 120:00
 #BSUB -P prepay-houlston
-#BSUB -o /scratch/cancgene/mhenrion/RCC_for_phasing_imputing/NCI_GWAS/filtered_results/combined/NCIGWAS_RCC_results_check_stdout.txt
-#BSUB -e /scratch/cancgene/mhenrion/RCC_for_phasing_imputing/NCI_GWAS/filtered_results/combined/NCIGWAS_RCC_results_check_stderr.txt
+#BSUB -o plots_%J_stdout.txt
+#BSUB -e plots_%J_stderr.txt
 
-R --vanilla < /scratch/cancgene/mhenrion/RCC_for_phasing_imputing/NCI_GWAS/manhattan_QQ-plots.R --args /scratch/cancgene/mhenrion/RCC_for_phasing_imputing/NCI_GWAS/filtered_results/combined/NCIGWAS_RCC_results.txt /scratch/cancgene/mhenrion/RCC_for_phasing_imputing/NCI_GWAS/filtered_results/combined/NCIGWAS_RCC_results_check
-
+R --vanilla < 8_manhattan_QQ-plots.R 
 
