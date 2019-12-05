@@ -61,7 +61,7 @@ which will grep for these categories and split them into separate files (SUPER a
 Re-submit anything that needs to be re-run; if your job exceeded the memory limit, be sure to either lower the number of jobs per node or increase the number of cores (hence memory) requested
 
 ## 4. combine per chromosome
-*4_combine_imputed_files_NCIGWAS.sh*
+*4_combine_imputed_files.sh*
 
 Combine and compress the impute data by chromosome. This script sorts the files by bp order, so make sure you are sorting in the correct field (the -k parameter)
 
@@ -74,7 +74,7 @@ NB if you have covariates, don't forget to include those
 NB assumes the phenotype is the 7th column and encoded as 1-2; if this is not the case, recode it yourself manually
 
 ## 6. run snptest
-*6_run_snptest_NCI.sh*
+*6_run_snptest.sh*
 
 NB if your imputed files are compressed (as they should be) you'll need to gzip the sample file you created above as well.
 
@@ -87,7 +87,6 @@ Filters the snptest output by MAF (case and control separately), HWE (control) a
 *8_manhattan_QQ-plots.sh*
 
 I generally just run the R script directly. Also check the beta/se/pvalue columns if they're different.
-NB assumes you've concatenated the filtered snptest results
 
 ## 9. meta-analysis
 *9_metaLoop.sh*
