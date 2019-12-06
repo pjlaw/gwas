@@ -19,9 +19,10 @@ chrSizes<-c(0,249250621,243199373,198022430,191154276,180915260,171115067,159138
 for(i in 2:length(chrSizes)){
   chrSizes[i]<-chrSizes[i-1]+chrSizes[i]
 }
+filtered_dat = filtered_dat %>% mutate(chromosome=as.numeric(chromosome))
 filtered_dat = filtered_dat %>% mutate(gwPos=chrSizes[chr]+pos, chromcols=c("A", "B")[1+chr%%2])
 
-p=ggplot(data=filtered_dat, aes(x=gwPos, y=-log10(P_value), color=chromcols, alpha=exp(abs(beta)))) +
+p=ggplot(data=filtered_dat, aes(x=gwPos, y=-log10(P_value), color=chromcols)) +
   geom_point( size=1) +
   theme_classic(base_size = 16) +
   labs(x="Chromosome & position",y=expression('-log'[10]*'(P)')) +
@@ -64,10 +65,3 @@ legend("bottomright",parse(text=paste("lambda==",round(lambda,4))))
 abline(a=0,b=1,col="red")
 dev.off()
 
-
-
-
-
-
-print(estlambda(inDat$frequentist_add_pvalue, proportion = 0.9, method="median"))
-print(estlambda(inDat$frequentist_add_pvalue, proportion = 0.9))
