@@ -44,12 +44,11 @@ stat=inDat %>% pull(stat)
 stat=stat[which(!is.na(stat))]
 
 ntp = round(proportion * length(stat))
-stat = qchisq(stat, 1, lower.tail = FALSE)
 stat[which(abs(stat) < 1e-08)] = NA
 
 stat = sort(stat)
 ppoi = ppoints(stat)
-ppoi = sort(qchisq(ppoi, df = df, lower.tail = FALSE))
+ppoi = sort(qchisq(ppoi, df = 1, lower.tail = FALSE))
 data_prop = stat[1:ntp]
 ppoi_prop = ppoi[1:ntp]
 
