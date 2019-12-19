@@ -1,19 +1,13 @@
 #!/bin/bash
+# BSUB -P DMPGJMAAQ
+# BSUB -J phasing[1-22]
+# BSUB -n 3
+# BSUB -R "span[hosts=1]"
+# BSUB -W 160:00
+# BSUB -o /scratch/DGE/MOPOPGEN/plaw/PRS/CRC/onco_with_rel/impute/phasing_%J_chr%I.stdout
+# BSUB -e /scratch/DGE/MOPOPGEN/plaw/PRS/CRC/onco_with_rel/impute/phasing_%J_chr%I.stderr
 
-module load shapeit
+#module load shapeit
 
-for chr in {1..22}; do
-    echo '#!/bin/bash
-    #BSUB -J "shapeit_p2"
-	#BSUB -n 1
-	#BSUB -P zero-houlston
-	#BSUB -W 100:00
-	#BSUB -o tmp/output.%J
-	#BSUB -e tmp/errors.%J' > tmp/tmp_shapeit_cmd_$chr\.sh
-    
-    echo "" >> tmp/tmp_shapeit_cmd_$chr\.sh
-    echo "shapeit -B /scratch/cancgene/plaw/plink_gwas/unphased/CLL2_chr$chr -M /scratch/cancgene/mhenrion/1kG_Dec2013_integrated_unzipped/genetic_map_chr$chr\_combined_b37.txt -O /scratch/cancgene/plaw/plink_gwas/phased/CLL2_chr$chr\.phased --thread 12" >> tmp/tmp_shapeit_cmd_$chr\.sh
-       
-    bsub < tmp/tmp_shapeit_cmd_$chr\.sh
-    
-done;
+chr=${LSB_JOBINDEX} 
+/scratch/DGE/MOPOPGEN/plaw/programs/shapeit3/shapeit3.r884.1 -B /scratch/DGE/MOPOPGEN/plaw/PRS/CRC/onco_with_rel/impute/prephased/crc_onco_relatives_chr$chr -M /scratch/Dalek/cancgene/mhenrion/1kG_Dec2013_integrated_unzipped/genetic_map_chr$chr\_combined_b37.txt -O /scratch/DGE/MOPOPGEN/plaw/PRS/CRC/onco_with_rel/impute/phased/crc_onco_relatives_chr$chr\.phased -L /scratch/DGE/MOPOPGEN/plaw/PRS/CRC/onco_with_rel/impute/scripts/tmp/phasing_chr$chr --thread 3
