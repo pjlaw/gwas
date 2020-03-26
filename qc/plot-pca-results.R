@@ -27,4 +27,5 @@ dev.off()
 # 
 # edit the limits as appropriate and run this to identify ca/co samples that are out of bounds
 # exclude=as.character(data[which((data[,lastcol]=="Case" | data[,lastcol]=="Control") & (data$V2<=0.013 | data$V2>=0.019 | data$V3<=0.07)), 1])
+# exclude=gsub(":", " ", exclude)
 # writeLines(exclude, paste0(path, "/fail-pca.txt"))
