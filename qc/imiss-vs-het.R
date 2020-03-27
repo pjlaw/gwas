@@ -5,6 +5,9 @@ library("tidyverse")
 path=""
 #root of .bed/.bim/.fam files
 expername=""
+#set thresholds
+missingness_threshold=0.05
+n_stdevs=3
 
 imiss = read_table(paste0(path,"/",expername,".imiss"))
 imiss = imiss %>% mutate(logF_MISS = log10(F_MISS))
@@ -19,15 +22,13 @@ axis(1,at=-6:0, labels=10**(-6:0))
 m = mean(het$meanHet)
 stdev = sd(het$meanHet)
 
-missingness_threshold=0.05
-n_stdevs=3
 abline(h=m-(n_stdevs*stdev),col="RED",lty=2)
 abline(h=m+(n_stdevs*stdev),col="RED",lty=2)
 abline(v=log10(missingness_threshold), col="RED", lty=2)
 dev.off()
 
-missing = imiss %>% filter($logF_MISS>log10(missingness_threshold)) %>% select(FID,IID)
+missing = imiss %>% filter(logF_MISS>log10(missingness_threshold)) %>% select(FID,IID)
 heterozygous = het %>% filter(meanHet<(m-n_stdevs*stdev) | meanHet>(m+n_stdevs*stdev)) %>% select(FID,IID)
 exclude = union(missing, heterozygous)
 
-write_delim(exclude, paste0(path,"/fail-imisshet-qc.txt"), col_names=F)
+write_delim(exclude, paste0(path,"/fail-imisshet-qc.txt"), delim=" ", col_names=F)
