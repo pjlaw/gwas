@@ -70,7 +70,8 @@ lambda_regression = s[1, 1]
 qq_data=tibble(expected=ppoi, observed=stat)
 axis_limit=min(max(qq_data), 60) #don't want to plot anything beyond 60
 
-p = ggplot(qq_data, aes(x=expected, y=observed))+geom_point()+theme_classic() %+replace% theme(plot.title = element_text(hjust = 0.5, face="bold", size=12))+
+p = ggplot(qq_data, aes(x=expected, y=observed))+geom_point(shape=".")+
+  theme_classic() %+replace% theme(plot.title = element_text(hjust = 0.5, face="bold", size=12))+
   labs(x=expression("Expected "*chi^2*"values"),  y=expression("Observed "*chi^2*"values"))+
   geom_abline(intercept=0, slope=1, linetype=3, colour="red")+
   #xlim(0, axis_limit)+ylim(0, axis_limit)+
