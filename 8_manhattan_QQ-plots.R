@@ -52,15 +52,31 @@ ppoi = sort(qchisq(ppoi, df = 1, lower.tail = FALSE))
 data_prop = stat[1:ntp]
 ppoi_prop = ppoi[1:ntp]
 
-lambda = median(data_prop, na.rm = TRUE)/qchisq(0.5, 1)
+lambda_median = median(data_prop, na.rm = TRUE)/qchisq(0.5, 1)
+s = summary(lm(data_prop ~ 0 + ppoi_prop))$coeff
+lambda_regression = s[1, 1]
+#lambda_se = s[1, 2]
 
-png(paste(file_path,outprefix,"_QQ_all.png",sep=""),width=800,height=800)
-par(mai=c(1,1,0.05,0.05))
-plot(ppoi, stat, pch=".",cex=1,col="black",
-    ylab=expression(paste("Observed ",group("",chi^2,"")," values",sep="")),
-    xlab=expression(paste("Expected ",group("",chi^2,"")," values",sep=""))) 
+#png(paste(file_path,outprefix,"_QQ_all.png",sep=""),width=800,height=800)
+#par(mai=c(1,1,0.05,0.05))
+#plot(ppoi, stat, pch=".",cex=1,col="black",
+#    ylab=expression(paste("Observed ",group("",chi^2,"")," values",sep="")),
+#    xlab=expression(paste("Expected ",group("",chi^2,"")," values",sep=""))) 
     #,xlim=c(0,60),ylim=c(0,60))
-legend("bottomright",parse(text=paste("lambda==",round(lambda,4))))
-abline(a=0,b=1,col="red")
-dev.off()
+#legend("bottomright",parse(text=paste("lambda==",round(lambda,4))))
+#abline(a=0,b=1,col="red")
+#dev.off()
+
+qq_data=tibble(expected=ppoi, observed=stat)
+axis_limit=min(max(qq_data), 60) #don't want to plot anything beyond 60
+
+p = ggplot(qq_data, aes(x=expected, y=observed))+geom_point()+theme_classic() %+replace% theme(plot.title = element_text(hjust = 0.5, face="bold", size=12))+
+  labs(x=expression("Expected "*chi^2*"values"),  y=expression("Observed "*chi^2*"values"))+
+  geom_abline(intercept=0, slope=1, linetype=3, colour="red")+
+  #xlim(0, axis_limit)+ylim(0, axis_limit)+
+  annotate("text", x=0, y = axis_limit, vjust=1, hjust=0, label=paste0("lambda == ", round(lambda_median, 2)), parse=T)+
+  annotate("text", x=0, y = axis_limit-2, vjust=1, hjust=0, label=paste0("lambda == ", round(lambda_regression, 2)), parse=T)
+
+ggsave(paste0(file_path,outprefix,"_QQ.png"), plot=p, dpi=1000, width=15, height=15, units="cm")
+
 
