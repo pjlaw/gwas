@@ -75,8 +75,8 @@ p = ggplot(qq_data, aes(x=expected, y=observed))+geom_point(shape=".")+
   labs(x=expression("Expected "*chi^2*"values"),  y=expression("Observed "*chi^2*"values"))+
   geom_abline(intercept=0, slope=1, linetype=3, colour="red")+
   #xlim(0, axis_limit)+ylim(0, axis_limit)+
-  annotate("text", x=0, y = axis_limit, vjust=1, hjust=0, label=paste0("lambda == ", round(lambda_median, 2)), parse=T)+
-  annotate("text", x=0, y = axis_limit-2, vjust=1, hjust=0, label=paste0("lambda == ", round(lambda_regression, 2)), parse=T)
+  annotate("text", x=0, y = axis_limit, vjust=1, hjust=0, label=paste0("lambda [median] == ", round(lambda_median, 2)), parse=T)+
+  annotate("text", x=0, y = axis_limit-2, vjust=1, hjust=0, label=paste0("lambda [regression] == ", round(lambda_regression, 2)), parse=T)
 
 ggsave(paste0(file_path,outprefix,"_QQ.png"), plot=p, dpi=1000, width=15, height=15, units="cm")
 
