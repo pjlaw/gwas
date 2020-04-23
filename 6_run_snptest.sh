@@ -14,6 +14,10 @@ impFile=$path\/combined/CLL1_chr$chr\.imputed.gen.gz
 sampFile=$path\/CLL1_sample_file.sample.gz
 outFile=$path\/snptest/CLL1_snptest_chr$chr\.txt.gz
 
-#run snptest
-/scratch/cancgene/plaw/programs/snptest/snptest_v2.5.1_linux_x86_64_static/snptest_v2.5.1 -assume_chromosome $chr -method score -frequentist 1 -pheno pheno_caco -hwe -data $impFile $sampFile -o $outFile 
+module load snptest
+
+#run snptest - expected method, additive model
+#add covariates if needed with -cov_names <cov_1> (as defined in sample file)
+
+snptest -assume_chromosome $chr -method expected -frequentist 1 -pheno pheno_caco -hwe -data $impFile $sampFile -o $outFile 
 
