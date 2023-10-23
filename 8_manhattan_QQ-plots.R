@@ -44,10 +44,10 @@ inDat = all_dat %>% mutate(stat=(frequentist_add_beta_1/frequentist_add_se_1)^2)
 #proportion of data to use
 proportion=0.9
 stat=inDat %>% pull(stat)
-stat=stat[which(!is.na(stat))]
 
 ntp = round(proportion * length(stat))
 stat[which(abs(stat) < 1e-08)] = NA
+stat=stat[which(!is.na(stat))]
 
 stat = sort(stat)
 ppoi = ppoints(stat)
