@@ -34,7 +34,7 @@ mkdir -p plink_res
 
 #3) Calculate plink clumps within significant hits:
 for i in {1..22}; do 
-	plink --bfile "/scratch/DGE/MOPOPGEN/plaw/reference_data/1kg_uk10k_eur/1kg_uk10k_eur_chr"$i"_with_cms" --clump $outfile\_input_plink.txt --clump-kb 500 --clump-r2 0.1 --clump-allow-overlap --out plink_res/$outfile\_clump_$i
+	plink --bfile "/data/scratch/DGE/DUDGE/MOPOPGEN/plaw/reference_data/1kg_uk10k_eur/1kg_uk10k_eur_chr"$i"_filtered" --clump $outfile\_input_plink.txt --clump-kb 500 --clump-r2 0.1 --clump-allow-overlap --out plink_res/$outfile\_clump_$i
 done
 
 cat plink_res/$outfile\_clump_*.clumped > plink_res/$outfile\_clump_all.clumped
@@ -44,7 +44,7 @@ cat plink_res/$outfile\_clump_*.clumped > plink_res/$outfile\_clump_all.clumped
  
 #5) LD WITH KNOWN SNPS (you don’t need to re-run this unless you change the list of known snps)
 #ld snps from all published studies - /scratch/DGE/MOPOPGEN/plaw/CRC_GWAS/scotland_meta/output/crc_published_snps.txt
-for i in `seq 1 22`; do plink --bfile "/scratch/DGE/MOPOPGEN/plaw/reference_data/1kg_uk10k_eur/1kg_uk10k_eur_chr"$i"_with_cms" --r2 dprime --ld-snp-list /scratch/DGE/MOPOPGEN/plaw/CRC_GWAS/US_meta/known_snps_eur_plink.txt --ld-window 100000 --ld-window-r2 0.01 --ld-window-kb 1000 --out plink_res/LD_known_$i; done
+for i in `seq 1 22`; do plink --bfile "/data/scratch/DGE/DUDGE/MOPOPGEN/plaw/reference_data/1kg_uk10k_eur/1kg_uk10k_eur_chr"$i"_filtered" --r2 dprime --ld-snp-list /scratch/DGE/MOPOPGEN/plaw/CRC_GWAS/US_meta/known_snps_eur_plink.txt --ld-window 100000 --ld-window-r2 0.01 --ld-window-kb 1000 --out plink_res/LD_known_$i; done
 cat plink_res/LD_*.ld | grep -v CHR_A > plink_res/LD_all.ld
 
 #6) Combine data, make an output file with all the annotations
